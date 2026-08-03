@@ -5,7 +5,7 @@ on:
     branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
-  workflow_dispatch: # امکان اجرای دستی برنامه از تب Actions
+  workflow_dispatch:
 
 jobs:
   build:
@@ -24,14 +24,12 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      # ایجاد دسترسی اجرایی به gradlew در صورت وجود
       - name: Make Gradlew Executable
         run: |
           if [ -f "./gradlew" ]; then
             chmod +x gradlew
           fi
 
-      # کامپایل پروژه و ساخت APK
       - name: Build Debug APK
         run: |
           if [ -f "./gradlew" ]; then
@@ -40,7 +38,6 @@ jobs:
             gradle assembleDebug
           fi
 
-      # آپلود فایل APK ساخته‌شده جهت دانلود
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
