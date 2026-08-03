@@ -1,0 +1,48 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch: # امکان اجرای دستی برنامه از تب Actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      # ایجاد دسترسی اجرایی به gradlew در صورت وجود
+      - name: Make Gradlew Executable
+        run: |
+          if [ -f "./gradlew" ]; then
+            chmod +x gradlew
+          fi
+
+      # کامپایل پروژه و ساخت APK
+      - name: Build Debug APK
+        run: |
+          if [ -f "./gradlew" ]; then
+            ./gradlew assembleDebug
+          else
+            gradle assembleDebug
+          fi
+
+      # آپلود فایل APK ساخته‌شده جهت دانلود
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RhythmLoopApp-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
