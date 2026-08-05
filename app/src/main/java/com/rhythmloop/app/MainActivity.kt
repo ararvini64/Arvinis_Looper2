@@ -1,4 +1,4 @@
-package com.rhythmplayer.app
+package com.rhythmloop.app
 
 import android.content.Context
 import android.media.MediaMetadataRetriever
@@ -136,7 +136,6 @@ fun ArvinisRhythmApp() {
 
 @Composable
 fun MainDashboardScreen(onCategoryClick: (String, Color) -> Unit) {
-    // تغییر رنگ کارت My Own به زرد برای تشخیص آنی
     val categories = listOf(
         "Persian" to Color(0xFF1E88E5),
         "Kurdish" to Color(0xFF4CAF50),
@@ -144,7 +143,7 @@ fun MainDashboardScreen(onCategoryClick: (String, Color) -> Unit) {
         "Azeri" to Color(0xFFFB8C00),
         "Arabic" to Color(0xFF8E24AA),
         "European" to Color(0xFF00ACC1),
-        "My Own" to Color(0xFFFFEB3B), // رنگ زرد فسفری
+        "My Own" to Color(0xFFFFEB3B), // زرد فسفری
         "Favorites" to Color(0xFFFDD835)
     )
 
@@ -153,7 +152,6 @@ fun MainDashboardScreen(onCategoryClick: (String, Color) -> Unit) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // تیتر جدید با علامت‌های ضربدر ❌
         Text(
             text = "❌ Arvinis Rhythm Player [X-TEST-BUILD-v4] ❌",
             color = Color.Yellow,
